@@ -1,0 +1,60 @@
+.footBuy-container{
+  position: fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  width: 100%;
+  .footBuy-wrapper{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    border-top:1px solid #eaeaea;
+    box-sizing:border-box;
+    text-align: center;
+    background-color:#ffffff;
+    .work-btn{
+      width:60px;
+      height:49px;
+      padding-top:30px;
+      box-sizing: border-box;
+      font-size:13px;
+      color:#333333;
+      &:nth-child(1){
+        background:url('./ysx_kf.png') no-repeat;
+        background-position: center 6.5px;
+        background-size:17.5px 20px;
+      }
+      &:nth-child(2){
+        background:url('./ysx_fx.png') no-repeat;
+        background-position: center 6.5px;
+        background-size:18px 16px;
+      }
+    }
+    .buy-btn{
+      flex:1;
+      line-height: 49px;
+      font-size:18px;
+      color:#ffffff;
+      background-color:#f34f50;
+    }
+  }
+  .footBuy-order{
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    background-color:#ffffff;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    position: fixed;
+    right:15px;
+    bottom:70px;
+    background-image:url('./ysx_dd.png');
+    background-repeat:no-repeat;
+    background-position:center 8px;
+    background-size: 16.5px 19px;
+    padding-top:30px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size:10px;
+    color:#333333;
+  }
+}

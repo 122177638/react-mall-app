@@ -1,0 +1,41 @@
+.SharePoint-container{
+  position: fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  top:0;
+  z-index: 9999;
+}
+.SharePoint-bg{
+  width:100%;
+  height:100%;
+  background-color:rgba(0, 0, 0, 0.7);
+  position: absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  top:0;
+  opacity: 0;
+  transition: all 0.3s ease-in;
+}
+.opacity{opacity:1;}
+.SharePoint-wrapper{
+  width:100%;
+  height:300px;
+  background:url('./mg_share.png') no-repeat;
+  background-size:100% 100%;
+  position: relative;
+  .SharePoint-tip{
+    width:50%;
+    height:140px;
+    position: absolute;
+    left:20%;
+    bottom:25px;
+    padding:15px;
+    box-sizing:border-box;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    p{font-size:18px;color:#ffffff;line-height: 1.5;}
+  }
+}
