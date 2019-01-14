@@ -68,7 +68,8 @@ class FootBuy extends PureComponent{
         let shareParams = {
           title: '知命养生开运香',
           content: '道家传统古法秘制，化煞旺运，清心养神，修心转运必请',
-          imgurl: 'https://hy.yixueqm.com/interface/Public/images/kaiyun/shareKyx.png',
+          url: 'https://hy.yixueqm.com/interface/index.php/Home/Kaiyun/index?channel=zm',
+          // imgurl: 'https://hy.yixueqm.com/interface/Public/images/kaiyun/shareKyx.png',
           sharetype: sharetype.toString(),
           shareMode: 9,
         }
