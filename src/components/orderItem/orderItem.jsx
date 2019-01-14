@@ -3,9 +3,7 @@ import './orderItem.less'
 import { withRouter } from 'react-router-dom'
 
 import Service from '@/components/service/service'
-import PropTypes from 'prop-types';
 
-import API from '@/api/api'
 class OrderItem extends PureComponent{
   static defaultProps = {
     itemData: {

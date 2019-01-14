@@ -42,9 +42,11 @@ class GoodsDetails extends PureComponent{
   }
   componentDidMount(){
     API.getGoodsInfo({typeid:localStorage.getItem('typeid')}).then((data)=>{
+      console.log(data)
       this.setState({goodsInfo: data})
       console.log(this.state.goodsInfo)
     })
+    // 设置可滚动
     openScroll(this.refs.viewDom)
   }
   openRetract(idx){

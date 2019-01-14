@@ -7,32 +7,26 @@ import OrderItem from '@/components/orderItem/orderItem'
 import Nodata from '@/components/nodata/nodata'
 
 // function
-import { Tabs, Badge,Modal } from 'antd-mobile';
+import { Tabs,Modal } from 'antd-mobile';
 import API from '@/api/api'
 import { connect } from 'react-redux';
-import { getOrderList } from '@/store/myOrder/action'
+import { getOrder,getOrder1,getOrder2,getOrder3 } from '@/store/myOrder/action'
 
 class MyOrder extends PureComponent{
   constructor(props){
     super(props)
-    this.state= {
-      orderList: []
+    this.state = {
+      indexPage: 0
     }
-
     // bind this
     this.navitoOrderDetails = this.navitoOrderDetails.bind(this)
   }
-  componentDidMount(){
-    API.getOrderList({uid: localStorage.getItem('uid')}).then((data)=>{
-      if(data){
-        this.setState({
-          orderList: data
-        })
-      }else{
-        throw console.error('获取数据失败');
-      }
-      console.log(data)
-    })
+  componentWillMount(){
+    // 设置默认页码
+    if(this.props.location.state &&　this.props.location.state.indexPage){
+      this.setState({indexPage: this.props.location.state.indexPage})
+    }
+   this.getOrders()
   }
   navitoOrderDetails(itemData,event){
     event.preventDefault();
@@ -43,21 +37,42 @@ class MyOrder extends PureComponent{
     Modal.alert('信息确认', '请确认是否收货成功', [
       { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
       { text: '确认', onPress: () => {
-        API.setOrderEnter({orderid:orderid}).then((data)=>{
+        API.setOrderEnter({orderid:orderid,uid: localStorage.getItem('uid')}).then((data)=>{
+          console.log(data)
           if(data.code){
-            API.getOrderList({uid: localStorage.getItem('uid')}).then((data)=>{
-              if(data){
-                this.setState({
-                  orderList: data
-                })
-              }else{
-                throw console.error('获取数据失败');
-              }
-            })
+            this.pageSwitch()
+          }else{
+            alert('确认收货失败')
           }
         })
       }},
     ]);
+  }
+  getOrders(){
+    this.props.getOrder({uid: localStorage.getItem('uid')})
+    this.props.getOrder1({uid: localStorage.getItem('uid'),substate:0})
+    this.props.getOrder2({uid: localStorage.getItem('uid'),substate:1})
+    this.props.getOrder3({uid: localStorage.getItem('uid'),substate:2})
+  }
+  pageSwitch(){
+    // 更新需要的页面
+    switch (this.state.indexPage) {
+      case 0:
+        this.props.getOrder({uid: localStorage.getItem('uid')})
+        break;
+      case 1:
+        this.props.getOrder1({uid: localStorage.getItem('uid'),substate:0})
+        break;
+      case 2:
+        this.props.getOrder2({uid: localStorage.getItem('uid'),substate:1})
+        break;
+      case 3:
+        this.props.getOrder3({uid: localStorage.getItem('uid'),substate:2})
+        break;
+      default:
+        alert('获取最新数据失败')
+        break;
+    }
   }
   render(){
     // <Badge text={'3'}></Badge>
@@ -67,20 +82,26 @@ class MyOrder extends PureComponent{
       { title: '待收货' },
       { title: '已完成' }
     ];
+    console.log(this.props)
     return(
       <div className="myOrder-container">
         <Tabs tabs={tabs}
-          initialPage={0}
-          onChange={(tab, index) => { console.log('onChange', index, tab); }}
-          onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+          initialPage={this.state.indexPage}
+          onChange={(tab, index) => { }}
+          onTabClick={(tab, index) => { }}
         >
           {/* 全部订单 */}
           <div className="tabPage">
             {
-              this.state.orderList
-              ?this.state.orderList.map((item,index)=>{
+              this.props.store.orderList.length > 0
+              ?this.props.store.orderList.map((item,index)=>{
                 return(
-                  <OrderItem itemData={item} key={index} click={this.navitoOrderDetails.bind(this,item)}></OrderItem>
+                  <OrderItem 
+                    itemData={item} 
+                    key={index} 
+                    click={this.navitoOrderDetails.bind(this,item)} 
+                    orderEnter={item.substate === '1'?this.orderEnter.bind(this,item.orderid):null}
+                  ></OrderItem>
                 )
               })
               :<Nodata></Nodata>
@@ -90,38 +111,50 @@ class MyOrder extends PureComponent{
           {/* 待发货 */}
           <div className="tabPage">
             {
-              this.state.orderList.map((item,index)=>{
+              this.props.store.orderList1.length > 0 
+              ?this.props.store.orderList1.map((item,index)=>{
                 return(
-                  item.substate === '0' 
-                  ? item.data ? <OrderItem itemData={item} key={index} click={this.navitoOrderDetails.bind(this,item)}></OrderItem> : <Nodata></Nodata> 
-                  : null
+                  <OrderItem 
+                    itemData={item} 
+                    key={index} 
+                    click={this.navitoOrderDetails.bind(this,item)}
+                  ></OrderItem>
                 )
               })
+              : <Nodata></Nodata> 
             }
           </div>
           {/* 待收货 */}
           <div className="tabPage">
-            
             {
-              this.state.orderList.map((item,index)=>{
+              this.props.store.orderList2.length > 0 
+              ?this.props.store.orderList2.map((item,index)=>{
                 return(
-                  item.substate === '1' 
-                  ? <OrderItem itemData={item} key={index} click={this.navitoOrderDetails.bind(this,item)} orderEnter={this.orderEnter.bind(this,item.orderid)}></OrderItem>
-                  : false
+                  <OrderItem 
+                    itemData={item} 
+                    key={index} 
+                    click={this.navitoOrderDetails.bind(this,item)} 
+                    orderEnter={this.orderEnter.bind(this,item.orderid)}
+                  ></OrderItem>
                 )
               })
+              : <Nodata></Nodata> 
             }
           </div>
           {/* 已完成 */}
           <div className="tabPage">
             {
-              this.state.orderList.map((item,index)=>{
+              this.props.store.orderList3.length > 0
+              ?this.props.store.orderList3.map((item,index)=>{
                 return(
-                  item.substate === '2' 
-                  ? item.data ? <OrderItem itemData={item} key={index} click={this.navitoOrderDetails.bind(this,item)}></OrderItem> : <Nodata></Nodata> 
-                  : null
+                  <OrderItem 
+                    itemData={item} 
+                    key={index} 
+                    click={this.navitoOrderDetails.bind(this,item)}
+                  ></OrderItem>
                 )
               })
+              : <Nodata></Nodata> 
             }
           </div>
         </Tabs>
@@ -130,8 +163,13 @@ class MyOrder extends PureComponent{
   }
 }
 
-export default connect(state=>({
-  
-}),{
-
+export default connect(state=>(
+  { 
+    store:{...state.myOrder} 
+  }
+),{
+  getOrder,
+  getOrder1,
+  getOrder2,
+  getOrder3
 })(MyOrder)

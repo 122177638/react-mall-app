@@ -1,6 +1,6 @@
 import React,{ PureComponent } from 'react';
 import { withRouter } from 'react-router-dom'
-import { ActionSheet, Toast } from 'antd-mobile';
+import { ActionSheet } from 'antd-mobile';
 import './footBuy.less'
 
 //components
@@ -69,7 +69,7 @@ class FootBuy extends PureComponent{
           title: '知命养生开运香',
           content: '道家传统古法秘制，化煞旺运，清心养神，修心转运必请',
           imgurl: 'https://hy.yixueqm.com/interface/Public/images/kaiyun/shareKyx.png',
-          sharetype: sharetype,
+          sharetype: sharetype.toString(),
           shareMode: 9,
         }
         if(client === 'ios'){

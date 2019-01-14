@@ -1,5 +1,5 @@
 import React, { Component,Fragment } from 'react';
-import { Switch, Route, Redirect, BrowserRouter,HashRouter } from 'react-router-dom';
+import { Switch, Route,HashRouter } from 'react-router-dom';
 
 // function
 // import asyncComponent from '@/common/js/asyncComponent'
@@ -13,7 +13,7 @@ import Order from './order/order'
 import InputInfo from './inputInfo/inputInfo';
 import BuyPoint from './buyPoint/buyPoint';
 import MyOrder from './myOrder/myOrder';
-import NotFound from './notFound/notFound';
+// import NotFound from './notFound/notFound';
 import orderDetails from './orderDetails/orderDetails'
 // 页面按需加载
 // const Login = asyncComponent(() => import('./login/login'))

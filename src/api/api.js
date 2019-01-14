@@ -124,7 +124,7 @@ class API extends Axios{
   /**
    * 确认收货
    * @method post
-   * @param {Object} params orderid
+   * @param {Object} params orderid uid
    * @return {promise}
    */
   async setOrderEnter(params = {}){

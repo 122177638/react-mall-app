@@ -10,9 +10,9 @@ import '@/common/style/base.css';
 import '@/common/js/rem.js'
 
 // 监听state变化
-store.subscribe((ss) => {
-  console.log('store发生了变化');
-});
+// store.subscribe(() => {
+//   console.log('store发生了变化');
+// });
 
 const render = Component => {
   ReactDOM.render(

@@ -1,2 +1,5 @@
 // 获取订单列表
 export const GETORDERLIST = 'GETORDERLIST';
+export const GETORDERLIST1 = 'GETORDERLIST0';
+export const GETORDERLIST2 = 'GETORDERLIST1';
+export const GETORDERLIST3 = 'GETORDERLIST2';

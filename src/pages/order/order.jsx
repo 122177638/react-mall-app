@@ -53,7 +53,6 @@ class Order extends PureComponent{
             }else{
               Toast.info('订单未支付成功', 1);
             }
-            console.log(data)
           })
         }},
       ])
@@ -70,7 +69,6 @@ class Order extends PureComponent{
   render(){
     const goodsList = this.props.storeState.goodsList.conmodity;
     const totalMoney = this.props.storeState.goodsList.totalMoney;
-    console.log(this.props.storeState.goodsList)
     return(
       <div className="order-container" ref="viewDom">
         <div className="order-content">
