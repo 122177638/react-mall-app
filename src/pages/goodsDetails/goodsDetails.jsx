@@ -22,7 +22,6 @@ class GoodsDetails extends PureComponent{
   }
   componentWillMount(){
     let params = parseQueryString(window.location.href);
-    console.log(params)
     try {
       if(params && params.uid){
         localStorage.setItem('uid',params.uid)

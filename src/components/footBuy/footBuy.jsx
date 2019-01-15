@@ -34,15 +34,15 @@ class FootBuy extends PureComponent{
     title: obj.title,
   }));
   shareShow(){
-    if(isWeixin() || isQQ()){
-      this.setState({isShare: !this.state.isShare})
-    }else if(sessionStorage.getItem('native') === '1'){
+    if(sessionStorage.getItem('native') === '1'){ // eslint-disable-line
       if(isAndroid()){
         this.showShareActionSheet('android');
       }else if(isIos()){
         this.showShareActionSheet('ios');
       }
-    } else{
+    } else if(isWeixin() || isQQ()){
+      this.setState({isShare: !this.state.isShare})
+    }else {
       this.setState({isShare: !this.state.isShare})
     }
   }
@@ -69,7 +69,7 @@ class FootBuy extends PureComponent{
           title: '知命养生开运香',
           content: '道家传统古法秘制，化煞旺运，清心养神，修心转运必请',
           url: 'https://hy.yixueqm.com/interface/index.php/Home/Kaiyun/index?channel=zm',
-          // imgurl: 'https://hy.yixueqm.com/interface/Public/images/kaiyun/shareKyx.png',
+          imgurl: 'https://hy.yixueqm.com/interface/Public/images/kaiyun/shareKyx.png',
           sharetype: sharetype.toString(),
           shareMode: 9,
         }
@@ -77,6 +77,7 @@ class FootBuy extends PureComponent{
           window.webkit.messageHandlers.share.postMessage(JSON.stringify(shareParams)) // eslint-disable-line
         }
         if(client === 'android'){
+          console.log('android end')
           android.share(JSON.stringify(shareParams)) // eslint-disable-line
         }
         // also support Promise
