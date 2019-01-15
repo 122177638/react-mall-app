@@ -59,40 +59,43 @@ class GoodsDetails extends PureComponent{
   render(){
     return(
       <div className="GoodsDetails-container" ref="viewDom">
-        <section className="goods-banner">
-          <img src={this.state.goodsInfo.banner} alt=""/>
-          <div className="goods-info">
-            <h3 className="goods-title">{this.state.goodsInfo.typeName}</h3>
-            <p className="goods-money">
-              <span className="goods-nowmoney">￥{this.state.goodsInfo.price}</span>
-              <span className="goods-oldmoney">原价：￥338.00</span>
-              <span className="goods-star">加持人：{this.state.goodsInfo.number}</span>
-            </p>
-          </div>
-        </section>
-        <section className="goods-introduce">
-          <ul className="goods-list">
-            {
-              this.state.goodsInfo.dataImg.map((item,index)=>{
-                return(
-                  <li className={`goods-item ${item.Retract?'Retract':''}`} key={index}>
-                    <img src={item.img} alt=""/>
-                    { 
-                      item.Retract && 
-                      <div className="open-more">
-                        <div className="open-flag" onClick={this.openRetract.bind(this,index)}>
-                          <p className="more-txt">展开阅读更多用香知识</p>
-                          <p className="more-icon"></p>
+        <div className="GoodsDetails-wrapper">
+          <section className="goods-banner">
+            <img src={this.state.goodsInfo.banner} alt=""/>
+            <div className="goods-info">
+              <h3 className="goods-title">{this.state.goodsInfo.typeName}</h3>
+              <p className="goods-money">
+                <span className="goods-nowmoney">￥{this.state.goodsInfo.price}</span>
+                <span className="goods-oldmoney">原价：￥338.00</span>
+                <span className="goods-star">加持人：{this.state.goodsInfo.number}</span>
+              </p>
+            </div>
+          </section>
+          <section className="goods-introduce">
+            <ul className="goods-list">
+              {
+                this.state.goodsInfo.dataImg.map((item,index)=>{
+                  return(
+                    <li className={`goods-item ${item.Retract?'Retract':''}`} key={index}>
+                      <img src={item.img} alt=""/>
+                      { 
+                        item.Retract && 
+                        <div className="open-more">
+                          <div className="open-flag" onClick={this.openRetract.bind(this,index)}>
+                            <p className="more-txt">展开阅读更多用香知识</p>
+                            <p className="more-icon"></p>
+                          </div>
                         </div>
-                      </div>
-                    }
-                  </li>
-                )
-              })
-            }
-          </ul>
-        </section>
-        <Footnote></Footnote>
+                      }
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </section>
+          <Footnote></Footnote>
+        </div>
+        
         <FootBuy></FootBuy>
       </div>
     )

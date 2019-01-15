@@ -36,7 +36,7 @@ class FootBuy extends PureComponent{
   shareShow(){
     if(isWeixin() || isQQ()){
       this.setState({isShare: !this.state.isShare})
-    }else if(sessionStorage.getItem('native')){
+    }else if(sessionStorage.getItem('native') === '1'){
       if(isAndroid()){
         this.showShareActionSheet('android');
       }else if(isIos()){
@@ -94,7 +94,10 @@ class FootBuy extends PureComponent{
       <section className="footBuy-container">
         <div className="footBuy-wrapper">
           <div className="work-btn" onClick={this.onShow}>客服</div>
-          <div className="work-btn" onClick={this.shareShow}>分享</div>
+          {
+            sessionStorage.getItem('native') !== '2' && 
+            <div className="work-btn" onClick={this.shareShow}>分享</div>
+          }
           <div className="buy-btn" onClick={this.linktoOrder}>立即购买</div>
         </div>
         <div className="footBuy-order" onClick={this.naviToMyOrder}>订单</div>

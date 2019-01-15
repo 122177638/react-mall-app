@@ -1,8 +1,13 @@
 .GoodsDetails-container{
   width: 100%;
   height:100%;
-  overflow-y:scroll;
-  -webkit-overflow-scrolling:touch; 
+  display:flex;
+  flex-direction:column;
+  .GoodsDetails-wrapper{
+    display:1;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling:touch; 
+  }
   .goods-banner{
     margin-bottom:45px;
     position: relative;

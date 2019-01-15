@@ -1,8 +1,6 @@
 .footBuy-container{
-  position: fixed;
-  bottom:0;
-  left:0;
-  right:0;
+  background-color:#ffffff;
+  padding-bottom:env(safe-area-inset-bottom);
   width: 100%;
   .footBuy-wrapper{
     display: flex;
@@ -11,7 +9,6 @@
     border-top:1px solid #eaeaea;
     box-sizing:border-box;
     text-align: center;
-    background-color:#ffffff;
     .work-btn{
       width:60px;
       height:49px;
@@ -46,7 +43,7 @@
     box-shadow: 0 0 6px rgba(0,0,0,0.1);
     position: fixed;
     right:15px;
-    bottom:70px;
+    bottom:calc(70px + env(safe-area-inset-bottom));
     background-image:url('./ysx_dd.png');
     background-repeat:no-repeat;
     background-position:center 8px;
