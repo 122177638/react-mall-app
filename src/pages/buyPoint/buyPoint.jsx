@@ -6,8 +6,8 @@ import './buyPoint.less';
 import API from '@/api/api';
 
 class BuyPoint extends PureComponent {
-  goInputAdress() {
-    API.getAdress({ uid: localStorage.getItem('uid') }).then(data => {
+  goInputAddress() {
+    API.getAddress({ uid: localStorage.getItem('uid') }).then(data => {
       if (data.code) {
         this.props.history.push({ pathname: '/inputInfo', state: data });
       } else {
@@ -26,7 +26,7 @@ class BuyPoint extends PureComponent {
           <p>我们将在3-7日内将商品邮寄。</p>
           <p>详细消息请留意通知。</p>
           <p>感谢您对知命的支持！</p>
-          <div className="inout-adress" onClick={this.goInputAdress.bind(this)}>
+          <div className="inout-adress" onClick={this.goInputAddress.bind(this)}>
             前往填写收货地址
           </div>
         </div>

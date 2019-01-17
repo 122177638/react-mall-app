@@ -22,7 +22,7 @@ class InputInfo extends PureComponent{
   }
   componentWillMount(){
     if(this.props.location.state){
-      this.setState({userInfo:this.props.location.state})
+      this.setState({ userInfo: this.props.location.state })
     }
   }
   getName(e){
@@ -56,18 +56,18 @@ class InputInfo extends PureComponent{
       { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
       { text: '确认', onPress: () => {
         console.log(this.state.userInfo)
-        API.setAdress(this.state.userInfo).then((data)=>{
+        API.setAddress(this.state.userInfo).then((data)=>{
           if(data.code){
-            this.props.history.push('/myOrder')
+            this.props.history.go(-1)
           }else{
-            Toast.fail('修改地址失败，请重试', 2);
+            Toast.fail('保存地址失败，请重试', 2);
           }
         })
       }},
     ]);
   }
   render(){
-    
+    console.log(this.state.userInfo)
     return(
       <div className="InputInfo-container">
         <div className="InputInfo-content">
@@ -92,7 +92,7 @@ class InputInfo extends PureComponent{
             </p>
           </div>
         </div>
-        <div className="form-submit" onClick={this.formSubmit}>确认提交</div>
+        <div className="form-submit" onClick={this.formSubmit}>保存地址</div>
       </div>
     )
   }
