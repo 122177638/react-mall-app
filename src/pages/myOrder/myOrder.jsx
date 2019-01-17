@@ -82,7 +82,6 @@ class MyOrder extends PureComponent{
       { title: '待收货' },
       { title: '已完成' }
     ];
-    console.log(this.props)
     return(
       <div className="myOrder-container">
         <Tabs tabs={tabs}

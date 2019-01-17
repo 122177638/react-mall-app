@@ -13,6 +13,7 @@ import Order from './order/order'
 import InputInfo from './inputInfo/inputInfo';
 import BuyPoint from './buyPoint/buyPoint';
 import MyOrder from './myOrder/myOrder';
+import SetAddress from './setAddress/setAddress';
 // import NotFound from './notFound/notFound';
 import orderDetails from './orderDetails/orderDetails'
 // 页面按需加载
@@ -41,6 +42,7 @@ class App extends Component {
             <Route path="/inputInfo" component={InputInfo}></Route>
             <Route path="/buyPoint" component={BuyPoint}></Route>
             <Route path="/myOrder" component={MyOrder}></Route>
+            <Route path="/setAddress" component={SetAddress}></Route>
             <Route path="/orderDetails" component={orderDetails}></Route>
             {/* <Redirect exact from="/" to="/home"></Redirect> */}
             {/* <Route path="/login" component={Login}></Route> */}

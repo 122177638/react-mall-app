@@ -26,7 +26,7 @@ class GoodsDetails extends PureComponent {
         localStorage.setItem('uid', params.uid);
       }
       if (params && params.channel) {
-        localStorage.setItem('channel', params.channel);
+        sessionStorage.setItem('channel', params.channel);
       }
       if (params && params.typeid) {
         localStorage.setItem('typeid', params.typeid);
@@ -43,6 +43,7 @@ class GoodsDetails extends PureComponent {
       this.setState({ goodsInfo: data });
       console.log(this.state.goodsInfo);
     });
+    API.countIndex({ typeName: 'kaiyunX', uid: localStorage.getItem('uid'),channel: sessionStorage.getItem('channel')}).then(data => { })
     // 设置可滚动
     openScroll(this.refs.viewDom);
   }

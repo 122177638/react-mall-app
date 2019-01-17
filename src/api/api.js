@@ -74,12 +74,60 @@ class API extends Axios{
     }
   }
   /**
-   * 查询收货地址
+   * 查询收货地址列表
    * @method post
    * @param {Object} params uid
    * @return {promise}
    */
-  async getAdress(params = {}){
+  async getAddressList(params = {}){
+    try{
+      let result = await this.axios('post', '/Home/Kaiyun/selectAddressArr', params); 
+      if(result){
+        return result;
+      }else{
+        let err = {
+          tip: '查询收货地址列表失败',
+          response: result,
+          data: params,
+          url: '/Home/Kaiyun/selectAddressArr',
+        }
+        throw err;
+      }
+    }catch(err){
+      throw err;
+    }
+  }
+  /**
+   * 删除收货地址
+   * @method post
+   * @param {Object} params aid
+   * @return {promise}
+   */
+  async delAddressItem(params = {}){
+    try{
+      let result = await this.axios('post', '/Home/Kaiyun/deleteAddress', params); 
+      if(result){
+        return result;
+      }else{
+        let err = {
+          tip: '删除收货地址失败',
+          response: result,
+          data: params,
+          url: '/Home/Kaiyun/deleteAddress',
+        }
+        throw err;
+      }
+    }catch(err){
+      throw err;
+    }
+  }
+  /**
+   * 查询收货地址 
+   * @method post
+   * @param {Object} params uid
+   * @return {promise}
+   */
+  async getAddress(params = {}){
     try{
       let result = await this.axios('post', '/Home/Kaiyun/selectAddress', params); 
       if(result){
@@ -103,7 +151,7 @@ class API extends Axios{
    * @param {Object} params uid name phone address
    * @return {promise}
    */
-  async setAdress(params = {}){
+  async setAddress(params = {}){
     try{
       let result = await this.axios('post', '/Home/Kaiyun/addToAddress', params); 
       if(result){
@@ -185,6 +233,29 @@ class API extends Axios{
           response: result,
           data: params,
           url: '/Home-InterfaceMr-shareData',
+        }
+        throw err;
+      }
+    }catch(err){
+      throw err;
+    }
+  }
+  /**
+   * 用途：首页统计
+   * @param {Object} params typeName  uid channel
+   * @method post  
+   */
+  async countIndex(params = {}){
+    try{
+      let result = await this.axios('post', '/Home-Interface-remain', params,{baseURL:"https://hy.yixueqm.com/zhiming/index.php/"}); 
+      if(result){
+        return result;
+      }else{
+        let err = {
+          tip: '统计失败',
+          response: result,
+          data: params,
+          url: '/Home-Interface-remain',
         }
         throw err;
       }

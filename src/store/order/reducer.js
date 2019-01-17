@@ -5,7 +5,7 @@ let defaultState = {
   goodsList: {}
 }
 
-export const orderGoods = (state = defaultState, action)=>{
+export const order = (state = defaultState, action)=>{
   switch(action.type){
     case types.GETGOODSLIST:
       {
