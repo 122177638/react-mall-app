@@ -72,12 +72,16 @@ class Order extends PureComponent {
     }
   }
   navitoOrder() {
-    if (this.props.storeState.goodsList.totalMoney) {
-      // 利用表单提交
-      this.refs.form.submit();
-    } else {
-      Toast.info('请选择你要购买的产品', 1);
+    if (!this.state.address.aid) {
+      Toast.info('请选择你的收货地址', 1);
+      return false;
     }
+    if (!this.props.storeState.goodsList.totalMoney) {
+      Toast.info('请选择你要购买的产品', 1);
+      return false;
+    }
+    // 利用表单提交
+    this.refs.form.submit();
   }
   render() {
     const goodsList = this.props.storeState.goodsList.conmodity;
@@ -179,6 +183,7 @@ class Order extends PureComponent {
           <input type="hidden" name="price" value={totalMoney} />
           <input type="hidden" name="clist" value={JSON.stringify(goodsList)} />
           <input type="hidden" name="typeid" value={this.typeid} />
+          <input type="hidden" name="aid" value={this.state.address.aid} />
           <input type="hidden" name="channel" value={this.channel} />
         </form>
       </div>
