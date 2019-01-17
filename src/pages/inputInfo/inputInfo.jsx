@@ -25,6 +25,9 @@ class InputInfo extends PureComponent{
       this.setState({ userInfo: this.props.location.state })
     }
   }
+  weixinBUG(){
+    window.scrollTo({top:0,left:0,behavior:"smooth"})
+  }
   getName(e){
     this.setState({
       userInfo: {...this.state.userInfo,name:e.target.value}
@@ -51,6 +54,7 @@ class InputInfo extends PureComponent{
     }
     if(!this.state.userInfo.address){
       Toast.info('请输入收件人地址', 1);
+      return false;
     }
     Modal.alert('信息确认', '请确认信息填写无误', [
       { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
@@ -67,7 +71,6 @@ class InputInfo extends PureComponent{
     ]);
   }
   render(){
-    console.log(this.state.userInfo)
     return(
       <div className="InputInfo-container">
         <div className="InputInfo-content">
@@ -75,15 +78,15 @@ class InputInfo extends PureComponent{
           <div className="InputInfo-form">
             <div className="form-item">
               <div className="input-name">收件人姓名</div> 
-              <div className="input-box"><input type="text" placeholder="请填写收件人姓名" onChange={this.getName} value={this.state.userInfo.name} className="line-input"></input></div>
+              <div className="input-box"><input type="text" placeholder="请填写收件人姓名" onChange={this.getName} value={this.state.userInfo.name} onBlur={this.weixinBUG} className="line-input"></input></div>
             </div>
             <div className="form-item">
               <div className="input-name">收件人电话</div> 
-              <div className="input-box"><input type="text" placeholder="请填写收件人联系电话" onChange={this.getphone} value={this.state.userInfo.phone} className="line-input"></input></div>
+              <div className="input-box"><input type="text" placeholder="请填写收件人联系电话" onChange={this.getphone} onBlur={this.weixinBUG} value={this.state.userInfo.phone} className="line-input"></input></div>
             </div>
             <div className="form-item column">
               <p className="input-name">收件人地址(请填写详细的收件地址)</p> 
-              <div className="input-box"><textarea className="line-input" onChange={this.getAddress} value={this.state.userInfo.address} placeholder="请填写详细的收件地址"></textarea></div>
+              <div className="input-box"><textarea className="line-input" onChange={this.getAddress} value={this.state.userInfo.address} onBlur={this.weixinBUG} placeholder="请填写详细的收件地址"></textarea></div>
             </div>
             <p className="form-point">
               温馨提示：

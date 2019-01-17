@@ -98,6 +98,30 @@ class API extends Axios{
     }
   }
   /**
+   * 设置默认收货地址
+   * @method post
+   * @param {Object} params uid aid
+   * @return {promise}
+   */
+  async setAddressInit(params = {}){
+    try{
+      let result = await this.axios('post', '/Home/Kaiyun/selectedAddress', params); 
+      if(result){
+        return result;
+      }else{
+        let err = {
+          tip: '设置默认收货地址失败',
+          response: result,
+          data: params,
+          url: '/Home/Kaiyun/selectedAddress',
+        }
+        throw err;
+      }
+    }catch(err){
+      throw err;
+    }
+  }
+  /**
    * 删除收货地址
    * @method post
    * @param {Object} params aid

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import './setAddress.less';
 
+import API from '@/api/api';
 import { Toast, Modal } from 'antd-mobile';
 import { connect } from 'react-redux';
 import { getAddressList, selAddressInit, delAddressItem } from '@/store/setAddress/action';
@@ -36,8 +37,13 @@ class SetAddress extends PureComponent {
   }
   submitAddress() {
     let item = this.props.storeState.addressList.filter(item => item.selected)[0];
-    this.props.history.push({ pathname: '/order', state: { type:'address',data:item } })
-    console.log(item);
+    API.setAddressInit({uid:localStorage.getItem('uid'),aid:item.aid}).then((data)=>{
+      if(data.code){
+        this.props.history.push({ pathname: '/order'})
+      }else{
+        Toast.info('设置默认地址失败',1)
+      } 
+    })
   }
   render() {
     const addressList = this.props.storeState.addressList;
@@ -83,7 +89,7 @@ class SetAddress extends PureComponent {
 }
 
 export default connect(
-  state => ({ storeState: { ...state.setAddress } }),
+  state => ({ storeState: state.setAddress  }),
   {
     getAddressList,
     selAddressInit,

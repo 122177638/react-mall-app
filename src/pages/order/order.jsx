@@ -10,20 +10,19 @@ import { Toast, Modal } from 'antd-mobile';
 import API from '@/api/api';
 import { connect } from 'react-redux';
 import { getGoodsList, addShopCart, delShopCart } from '@/store/order/action';
+import { getAddressList } from '@/store/setAddress/action';
 
 class Order extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       isShow: false,
-      address: {},
     };
     //  bind this
     this.onShow = this.onShow.bind(this);
     this.navitoOrder = this.navitoOrder.bind(this);
   }
   componentWillMount() {
-    console.log(this.props.history.location.state);
     this.typeid = localStorage.getItem('typeid');
     this.uid = localStorage.getItem('uid');
     this.channel = sessionStorage.getItem('channel');
@@ -32,13 +31,12 @@ class Order extends PureComponent {
     // 获取商品列表
     this.props.getGoodsList({ uid: this.uid, typeid: this.typeid });
     // 获取地址信息
-    if (this.props.history.location.state && this.props.history.location.state.type === 'address') {
-      this.setState({ address: this.props.history.location.state.data });
-    }
+    this.props.getAddressList({ uid: this.uid});
+    // 微信外是否支付成功
+    this.getPaySuccess();
   }
   componentDidMount() {
     openScroll(this.refs.viewDom);
-    this.getPaySuccess();
   }
   onShow() {
     this.setState({ isShow: !this.state.isShow });
@@ -72,7 +70,7 @@ class Order extends PureComponent {
     }
   }
   navitoOrder() {
-    if (!this.state.address.aid) {
+    if (!this.addressInit.aid) {
       Toast.info('请选择你的收货地址', 1);
       return false;
     }
@@ -86,11 +84,12 @@ class Order extends PureComponent {
   render() {
     const goodsList = this.props.storeState.goodsList.conmodity;
     const totalMoney = this.props.storeState.goodsList.totalMoney;
+    this.addressInit = this.props.storeState.addressList.filter(item=>item.selected)[0] || {};
     return (
       <div className="order-container" ref="viewDom">
         <div className="order-content">
           <div className="order-top">
-            {this.state.address.name ? (
+            {this.addressInit.name? (
               <div
                 className="address-info"
                 onClick={e => {
@@ -101,13 +100,13 @@ class Order extends PureComponent {
                   <div className="address-pr">
                     <p>
                       <strong>收货人：</strong>
-                      {this.state.address.name}
+                      {this.addressInit.name}
                     </p>
-                    <p className="phone">{this.state.address.phone}</p>
+                    <p className="phone">{this.addressInit.phone}</p>
                   </div>
                   <p className="address-txt">
                     <strong>收货地址：</strong>
-                    <span>{this.state.address.address}</span>
+                    <span>{this.addressInit.address}</span>
                   </p>
                 </div>
                 <div className="address-jx" />
@@ -117,7 +116,7 @@ class Order extends PureComponent {
                 <span
                   className="order-add"
                   onClick={e => {
-                    this.props.history.push('/setAddress');
+                    this.props.history.push('/inputInfo');
                   }}
                 >
                   添加收货地址
@@ -183,7 +182,7 @@ class Order extends PureComponent {
           <input type="hidden" name="price" value={totalMoney} />
           <input type="hidden" name="clist" value={JSON.stringify(goodsList)} />
           <input type="hidden" name="typeid" value={this.typeid} />
-          <input type="hidden" name="aid" value={this.state.address.aid} />
+          <input type="hidden" name="aid" value={this.addressInit.aid} />
           <input type="hidden" name="channel" value={this.channel} />
         </form>
       </div>
@@ -192,10 +191,13 @@ class Order extends PureComponent {
 }
 
 export default connect(
-  state => ({ storeState: state.order }),
+  state => ({ 
+    storeState: {...state.order,...state.setAddress},
+  }),
   {
     getGoodsList,
     addShopCart,
     delShopCart,
+    getAddressList
   }
 )(Order);
