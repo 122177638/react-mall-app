@@ -40,7 +40,6 @@ class GoodsDetails extends PureComponent {
   }
   componentDidMount() {
     API.getGoodsInfo({ typeid: localStorage.getItem('typeid') }).then(data => {
-      console.log(data);
       this.setState({ goodsInfo: data });
       console.log(this.state.goodsInfo);
     });
