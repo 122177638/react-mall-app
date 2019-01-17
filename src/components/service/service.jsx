@@ -17,7 +17,7 @@ class Service extends Component{
             </p>
             <img src={require('@/assets/img/kefu.png')} alt=""/>
             <CopyToClipboard text={'zm_junjun'}
-              onCopy={() => {alert('复制成功，前去添加客服微信')}}>
+              onCopy={() => {alert('复制成功，前去微信添加客服')}}>
               <p>微信: <a href="weixin://" className="openWX">zm_junjun</a></p>
             </CopyToClipboard>
             <div className="service-close" onClick={()=>this.props.onShow()}></div>

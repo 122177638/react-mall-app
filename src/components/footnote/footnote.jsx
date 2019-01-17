@@ -12,7 +12,7 @@ class Footnote extends PureComponent{
         <p>可扫描以上二维码添加客服微信</p>
         <p>或微信搜索客服君君(
           <CopyToClipboard text={'zm_junjun'}
-            onCopy={() => {alert('复制成功，前去添加客服微信')}}>
+            onCopy={() => {alert('复制成功，前去微信添加客服')}}>
             <a href="weixin://" className="openWX">zm_junjun</a>
           </CopyToClipboard>
         )了解更多</p>
