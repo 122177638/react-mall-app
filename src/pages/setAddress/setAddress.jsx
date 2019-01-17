@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getAddressList, selAddressInit, delAddressItem } from '@/store/setAddress/action';
 class SetAddress extends PureComponent {
   componentWillMount() {
-    this.props.getAddressList({ uid: 123456 });
+    this.props.getAddressList({ uid: localStorage.getItem('uid')});
   }
   selAddress(item) {
     this.props.selAddressInit(item);
