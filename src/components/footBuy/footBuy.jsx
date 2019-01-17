@@ -77,7 +77,6 @@ class FootBuy extends PureComponent{
           window.webkit.messageHandlers.share.postMessage(JSON.stringify(shareParams)) // eslint-disable-line
         }
         if(client === 'android'){
-          console.log('android end')
           android.share(JSON.stringify(shareParams)) // eslint-disable-line
         }
         // also support Promise

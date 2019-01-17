@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import './service.less'
+
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 class Service extends Component{
   render(){
@@ -15,6 +16,10 @@ class Service extends Component{
               可联系我们的客服君君
             </p>
             <img src={require('@/assets/img/kefu.png')} alt=""/>
+            <CopyToClipboard text={'zm_junjun'}
+              onCopy={() => {alert('复制成功，前去添加客服微信')}}>
+              <p>微信: <a href="weixin://" className="openWX">zm_junjun</a></p>
+            </CopyToClipboard>
             <div className="service-close" onClick={()=>this.props.onShow()}></div>
           </div>
         </div>
