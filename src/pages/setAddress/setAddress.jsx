@@ -7,16 +7,16 @@ import { connect } from 'react-redux';
 import { getAddressList, selAddressInit, delAddressItem } from '@/store/setAddress/action';
 class SetAddress extends PureComponent {
   componentWillMount() {
-    this.props.getAddressList({ uid: localStorage.getItem('uid')});
+    this.props.getAddressList({ uid: localStorage.getItem('uid') });
   }
   selAddress(item) {
     this.props.selAddressInit(item);
   }
-  setAddress(item,event) { 
+  setAddress(item, event) {
     event.stopPropagation();
-    this.props.history.push({pathname:'/inputInfo',state:item})
+    this.props.history.push({ pathname: '/inputInfo', state: item });
   }
-  addAddress() { 
+  addAddress() {
     this.props.history.push({ pathname: '/inputInfo' });
   }
   delAddress(item, event) {
@@ -37,13 +37,13 @@ class SetAddress extends PureComponent {
   }
   submitAddress() {
     let item = this.props.storeState.addressList.filter(item => item.selected)[0];
-    API.setAddressInit({uid:localStorage.getItem('uid'),aid:item.aid}).then((data)=>{
-      if(data.code){
-        this.props.history.push({ pathname: '/order'})
-      }else{
-        Toast.info('设置默认地址失败',1)
-      } 
-    })
+    API.setAddressInit({ uid: localStorage.getItem('uid'), aid: item.aid }).then(data => {
+      if (data.code) {
+        this.props.history.push({ pathname: '/order' });
+      } else {
+        Toast.info('设置默认地址失败', 1);
+      }
+    });
   }
   render() {
     const addressList = this.props.storeState.addressList;
@@ -55,7 +55,11 @@ class SetAddress extends PureComponent {
           <ul className="setAddress-list">
             {addressList.map((item, index) => {
               return (
-                <li className={`setAddress-item  ${item.selected ? 'selected' : ''}`} key={index} onClick={this.selAddress.bind(this, item)}>
+                <li
+                  className={`setAddress-item  ${item.selected ? 'selected' : ''}`}
+                  key={index}
+                  onClick={this.selAddress.bind(this, item)}
+                >
                   <div className="item-status" />
                   <div className="item-content">
                     <p className="item-info">
@@ -65,7 +69,9 @@ class SetAddress extends PureComponent {
                     <p className="item-address">{item.address}</p>
                   </div>
                   <div className="item-fs">
-                    <div className="item-set"  onClick={this.setAddress.bind(this, item)}>编辑</div>
+                    <div className="item-set" onClick={this.setAddress.bind(this, item)}>
+                      编辑
+                    </div>
                     <div className="item-del" onClick={this.delAddress.bind(this, item)}>
                       删除
                     </div>
@@ -75,7 +81,9 @@ class SetAddress extends PureComponent {
             })}
           </ul>
           <div className="add-address">
-            <span className="add-address-btn" onClick={this.addAddress.bind(this)}>添加收货地址</span>
+            <span className="add-address-btn" onClick={this.addAddress.bind(this)}>
+              添加收货地址
+            </span>
           </div>
         </div>
         <div className="setAddress-footer">
@@ -89,7 +97,7 @@ class SetAddress extends PureComponent {
 }
 
 export default connect(
-  state => ({ storeState: state.setAddress  }),
+  state => ({ storeState: state.setAddress }),
   {
     getAddressList,
     selAddressInit,

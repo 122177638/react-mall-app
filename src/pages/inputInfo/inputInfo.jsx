@@ -60,7 +60,7 @@ class InputInfo extends PureComponent{
       { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
       { text: '确认', onPress: () => {
         console.log(this.state.userInfo)
-        API.setAddress(this.state.userInfo).then((data)=>{
+        API.setAddress(this.state.userInfo).then((data) => {
           if(data.code){
             this.props.history.go(-1)
           }else{

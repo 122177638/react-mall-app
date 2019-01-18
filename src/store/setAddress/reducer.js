@@ -13,9 +13,9 @@ export const setAddress = (state = defaultState, action) => {
     case types.SELADRESSLIST:
       {
         state.addressList.forEach((item, index) => { 
-          item.selected = false;
+          item.selected = 0;
           if (item.aid === action.data.aid) { 
-            item.selected = true;
+            item.selected = 1;
           }
         })
         return { ...state };

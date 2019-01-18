@@ -170,7 +170,7 @@ class API extends Axios{
     }
   }
   /**
-   * 修改收货地址
+   * 添加修改收货地址
    * @method post
    * @param {Object} params uid name phone address
    * @return {promise}
